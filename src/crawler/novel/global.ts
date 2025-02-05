@@ -1,5 +1,7 @@
 import type Novel from '@/types/novel'
-import NovelInfo from './info'
+
+const IMAGE_WIDTH = 430
+const IMAGE_HEIGHT = 624
 
 export async function getInfo(novel: HTMLDivElement): Promise<Novel> {
     const title =
@@ -19,14 +21,20 @@ export async function getInfo(novel: HTMLDivElement): Promise<Novel> {
             ?.replace(process.env.WEB_CRAWLER_URL ?? '', '')
             .replaceAll('/', '') ?? ''
 
+    const cover_img_url = (
+        (
+            novel.querySelector(
+                'div.col-xs-3 > div > div.lazyimg',
+            ) as HTMLDivElement
+        ).getAttribute('data-image') ?? ''
+    ).replace(/=w\d+-h\d+/, `=w${IMAGE_WIDTH}-h${IMAGE_HEIGHT}`)
+
     const newest_chapter = parseInt(
         (
             (novel.querySelector('div.col-xs-2 > div > a') as HTMLAnchorElement)
                 .textContent as string
         ).replace('Chương ', ''),
     )
-
-    const { cover_img_url } = await NovelInfo(novel_id)
 
     return {
         cover_img_url: cover_img_url ?? '',
