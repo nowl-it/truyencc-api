@@ -1,0 +1,539 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Genre": {
+				"properties": {
+					"id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"name": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"required": [
+					"id",
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Novel": {
+				"properties": {
+					"novel_id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"title": {
+						"type": "string",
+						"minLength": 1
+					},
+					"cover_img_url": {
+						"type": "string",
+						"minLength": 1
+					},
+					"newest_chapter": {
+						"type": "number",
+						"format": "double",
+						"minLength": 1
+					}
+				},
+				"required": [
+					"novel_id",
+					"title",
+					"cover_img_url",
+					"newest_chapter"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Chapter": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"minLength": 1
+					},
+					"title": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"required": [
+					"id",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Read": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"prev_chapter": {
+						"type": "number",
+						"format": "double"
+					},
+					"next_chapter": {
+						"type": "number",
+						"format": "double"
+					},
+					"content": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title",
+					"prev_chapter",
+					"next_chapter",
+					"content"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"Bearer": {
+				"type": "apiKey",
+				"name": "Authorization",
+				"in": "header"
+			}
+		}
+	},
+	"info": {
+		"title": "truyencc",
+		"contact": {}
+	},
+	"paths": {
+		"/genre": {
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Genre"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Genre"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/novel": {
+			"get": {
+				"operationId": "GetFirstPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"All",
+					"Novel"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/novel/trang-{page}": {
+			"get": {
+				"operationId": "GetPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"All",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "page",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/novel/new": {
+			"get": {
+				"operationId": "GetNewFirstPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"New Novel",
+					"Novel"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/novel/new/{page}": {
+			"get": {
+				"operationId": "GetNewPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"New Novel",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "page",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/novel/hot": {
+			"get": {
+				"operationId": "GetHotFirstPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"Hot Novel",
+					"Novel"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/novel/hot/trang-{page}": {
+			"get": {
+				"operationId": "GetHotPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"Hot Novel",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "page",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/novel/genre/{genre}": {
+			"get": {
+				"operationId": "GetGenreFirstPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"Filter Novel by Genre",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "genre",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/novel/genre/{genre}/trang-{page}": {
+			"get": {
+				"operationId": "GetGenrePage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Novel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"Filter Novel by Genre",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "genre",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "page",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/novel/{id}": {
+			"get": {
+				"operationId": "GetNovel",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/Novel"
+										},
+										{
+											"properties": {},
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"Detail Novel",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/novel/{id}/chapter": {
+			"get": {
+				"operationId": "GetChapter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Chapter"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"Novel Chapter",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/novel/{id}/chapter/{chapter}": {
+			"get": {
+				"operationId": "ReadChapter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Read"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Novel",
+					"Read Novel",
+					"Novel"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "chapter",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/api/v1"
+		}
+	]
+}

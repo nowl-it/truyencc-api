@@ -1,0 +1,28 @@
+{
+    "entryFile": "src/index.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerPathGlobs": ["src/controllers/*.ts"],
+    "spec": {
+        "outputDirectory": "build",
+        "specVersion": 3,
+        "basePath": "/api/v1",
+        "host": "localhost:3000",
+        "schemes": ["http"],
+        "securityDefinitions": {
+            "Bearer": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "routes": {
+        "routesDir": "build/routes"
+    },
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@/*": ["./*"]
+        }
+    }
+}
