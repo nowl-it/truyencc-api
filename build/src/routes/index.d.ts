@@ -1,0 +1,2 @@
+import './genres';
+import './novel';
