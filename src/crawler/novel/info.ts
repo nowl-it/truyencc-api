@@ -2,7 +2,6 @@ import instance from '@/lib/instance'
 import string2html from '@/lib/string2html'
 
 import dotenv from 'dotenv'
-import NovelChapter from './chapter/list'
 import axiosRetry from 'axios-retry'
 dotenv.config()
 

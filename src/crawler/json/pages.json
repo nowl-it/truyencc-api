@@ -2,5 +2,6 @@
     "full": "/danh-sach/truyen-full",
     "new": "/danh-sach/truyen-moi",
     "hot": "/danh-sach/truyen-hot",
-    "genre": "/the-loai"
+    "genre": "/the-loai",
+    "search": "/tim-kiem/?tukhoa="
 }
