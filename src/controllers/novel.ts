@@ -37,7 +37,7 @@ export default class NovelController extends Controller {
         return []
     }
 
-    @Get('/new/{page}')
+    @Get('/new/trang-{page}')
     @Tags('Novel', 'New Novel')
     public async getNewPage(page: number): Promise<Novel[]> {
         const novels = await NovelCrawler('new', page)
@@ -93,8 +93,15 @@ export default class NovelController extends Controller {
 
     @Get('/{id}/chapter')
     @Tags('Novel', 'Novel Chapter')
-    public async getChapter(id: string): Promise<Chapter[]> {
+    public async getChapter(id: string): Promise<Chapter> {
         const chapter = await NovelChapter(id)
+        return chapter
+    }
+
+    @Get('/{id}/chapter/trang-{page}')
+    @Tags('Novel', 'Novel Chapter Page')
+    public async getChapterByPage(id: string, page: number): Promise<Chapter> {
+        const chapter = await NovelChapter(id, page)
         return chapter
     }
 

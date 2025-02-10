@@ -9,7 +9,6 @@ import '@/routes'
 dotenv.config()
 
 const app: Application = express()
-const port = process.env.PORT
 
 app.use(cors({ origin: '*' }))
 app.use(express.json())
@@ -18,9 +17,6 @@ app.use(express.static('public'))
 
 app.use(process.env.PREFIX_API || '/api/v1', router)
 
-const server = app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`)
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is running on port ${process.env.PORT || 3000}`)
 })
-
-server.keepAliveTimeout = 120 * 1000
-server.headersTimeout = 120 * 1000

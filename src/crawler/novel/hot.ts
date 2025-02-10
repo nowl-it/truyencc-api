@@ -3,8 +3,11 @@ import string2html from '@/lib/string2html'
 import pagesJson from '@/crawler/json/pages.json'
 import type Novel from '@/types/novel'
 import { getInfo } from './global'
+import axiosRetry from 'axios-retry'
 
 export default async function NovelHot(page: number = 1): Promise<Novel[]> {
+    axiosRetry(instance, { retries: 3 })
+
     const { data: pageString } = await instance.get(
         `${pagesJson.hot}/trang-${page}`,
     )

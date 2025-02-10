@@ -3,6 +3,7 @@ import swaggerConfig from '../../build/swagger.json'
 
 import './genres'
 import './novel'
+import './search'
 
 import router from './router'
 

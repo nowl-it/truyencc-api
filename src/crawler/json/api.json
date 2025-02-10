@@ -1,5 +1,6 @@
 {
     "hot": "/ajax.php?type=hot_select",
     "new": "/ajax.php?type=new_select",
-    "list_chapter": "/ajax.php?type=list_chapter"
+    "list_chapter": "/ajax.php?type=list_chapter",
+    "search": "/ajax.php?type=quick_search&str="
 }

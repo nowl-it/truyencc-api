@@ -5,9 +5,12 @@ import pagesJson from '@/crawler/json/pages.json'
 import dotenv from 'dotenv'
 import { getInfo } from './global'
 import type Novel from '@/types/novel'
+import axiosRetry from 'axios-retry'
 dotenv.config()
 
 export default async function NovelNew(page: number = 1): Promise<Novel[]> {
+    axiosRetry(instance, { retries: 3 })
+
     const { data: pageString } = await instance.get(
         `${pagesJson.new}/trang-${page}`,
     )

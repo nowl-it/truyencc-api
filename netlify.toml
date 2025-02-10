@@ -1,0 +1,13 @@
+[build]
+command = "npm run build"
+publish = "public"
+
+[functions]
+directory = "src"
+node_bundler = "esbuild"
+external_node_modules = ["express", "jsdom"]
+
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/api"
+status = 200

@@ -7,7 +7,7 @@ import axiosRetry from 'axios-retry'
 dotenv.config()
 
 export default async function NovelInfo(novel_id: string) {
-    axiosRetry(instance as any, { retries: 5 })
+    axiosRetry(instance as any, { retries: 10 })
     try {
         const { data: pageString } = await instance.get(novel_id)
 
@@ -45,8 +45,6 @@ export default async function NovelInfo(novel_id: string) {
 
         const status = pageHTML.querySelector('.text-success')?.textContent
 
-        const chapters = await NovelChapter(novel_id)
-
         return {
             novel_id,
             title,
@@ -59,10 +57,9 @@ export default async function NovelInfo(novel_id: string) {
             genres,
             cre,
             status,
-            chapters,
         }
     } catch (error: any) {
-        console.log(error)
+        console.log('ERROR WHILE FETCHING NOVEL INFO!', novel_id)
 
         return {
             error: error.message,

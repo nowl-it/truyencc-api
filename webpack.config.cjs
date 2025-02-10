@@ -6,7 +6,7 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
     externals: [nodeExternals()],
-    entry: './src/index.ts',
+    entry: './src/api.ts',
     output: {
         path: path.resolve(__dirname, './build'),
         filename: 'bundle.cjs',

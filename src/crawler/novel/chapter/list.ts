@@ -6,7 +6,9 @@ import axiosRetry from 'axios-retry'
 
 dotenv.config()
 
-export default async function NovelChapter(novel_id: string) {
+export default async function NovelChapter(novel_id: string, page: number = 1) {
+    axiosRetry(instance as any, { retries: 10 })
+
     const { data: pageHTML } = await instance.get(novel_id)
 
     const HTML = await string2html(pageHTML)
@@ -21,44 +23,36 @@ export default async function NovelChapter(novel_id: string) {
             .split('-')[1] ?? '1',
     )
 
-    axiosRetry(instance as any, { retries: 3 })
-
-    const promises: Promise<string>[] = Array.from(
-        { length: maxPage },
-        (_, i) =>
-            instance
-                .get(
-                    `${apiJson.list_chapter}&tid=1&tascii=${novel_id}&tname=${title}&page=${i + 1}&totalp=${maxPage}`,
-                )
-                .then(({ data: { chap_list } }) => chap_list),
-    )
-
     try {
-        const responses = await Promise.all(promises)
+        const chaptersHTML = HTML.querySelectorAll(
+            '.list-chapter > li > a',
+        ) as NodeListOf<HTMLAnchorElement>
 
-        const chaptersPromises = responses.map(async (stringHTML: string) => {
-            const HTML = await string2html(stringHTML)
-
-            return Array.from(HTML.querySelectorAll('a'))
-        })
-
-        const chaptersHTML = await Promise.all(chaptersPromises)
-
-        const chapters = chaptersHTML
-            .flat()
-            .map((chapter: HTMLAnchorElement, id) => {
+        const chapters = Array.from(chaptersHTML)
+            .map((chapter: HTMLAnchorElement) => {
                 const title = chapter.textContent?.trim() ?? ''
+                const id = parseInt(
+                    chapter.textContent?.split(':')[0].split(' ')[1] as string,
+                )
 
                 return {
-                    id: id + 1,
+                    id,
                     title,
                 }
             })
             .filter(({ title }) => title !== '')
 
-        return chapters
+        return {
+            chapters,
+            page,
+            maxPage,
+        }
     } catch (error) {
-        console.error('An error occurred:', error)
-        return []
+        console.error('ERROR WHILE FETCHING NOVEL CHAPTER LIST!')
+        return {
+            chapters: [],
+            page,
+            maxPage,
+        }
     }
 }

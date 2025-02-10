@@ -13,10 +13,14 @@ const {
     getGenrePage,
     getChapter,
     readChapter,
+    getChapterByPage,
 } = new NovelController()
 
 router.get('/novel', async (req, res) => {
     const novelFull = await getFirstPage()
+
+    console.log(novelFull.length)
+
     res.json(novelFull)
 })
 
@@ -70,6 +74,14 @@ router.get('/novel/:id', async (req, res) => {
 
 router.get('/novel/:id/chapter', async (req, res) => {
     const chapter = await getChapter(req.params.id)
+    res.json(chapter)
+})
+
+router.get('/novel/:id/chapter/trang-:page', async (req, res) => {
+    const chapter = await getChapterByPage(
+        req.params.id,
+        parseInt(req.params.page),
+    )
     res.json(chapter)
 })
 
